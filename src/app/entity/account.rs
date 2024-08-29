@@ -2,9 +2,11 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     app::service::jwt_service::TokenSchema,
-    models::{account::Account, types::Language},
+    models::{
+        account::Account,
+        types::{AccountStatus, Language},
+    },
 };
-use crate::models::types::AccountStatus;
 
 #[derive(Debug, Serialize)]
 pub struct LoginResponse {
@@ -34,7 +36,7 @@ pub struct TokenResponse {
 pub struct UserResponse {
     pub email: String,
     pub language: Language,
-    pub status: AccountStatus
+    pub status: AccountStatus,
 }
 
 #[derive(Debug, Deserialize)]

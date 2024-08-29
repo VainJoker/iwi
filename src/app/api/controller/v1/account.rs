@@ -11,7 +11,8 @@ use crate::{
         entity::{
             account::{
                 ActiveAccountRequest, LoginResponse, LoginUserRequest,
-                RegisterUserRequest, ResetPasswordRequest,
+                RegisterUserRequest, ResetPasswordRequest, TokenResponse,
+                UserResponse,
             },
             common::SuccessResponse,
         },
@@ -31,7 +32,6 @@ use crate::{
         types::AccountStatus,
     },
 };
-use crate::app::entity::account::{TokenResponse, UserResponse};
 
 pub async fn register_user_handler(
     State(state): State<Arc<AppState>>,
@@ -55,11 +55,11 @@ pub async fn register_user_handler(
 
     Ok(SuccessResponse {
         msg: "success",
-        data: Some(Json(UserResponse{
+        data: Some(Json(UserResponse {
             email: user.email,
             language: user.language,
             status: user.status,
-        }))
+        })),
     })
 }
 
@@ -94,7 +94,7 @@ pub async fn refresh_token_handler(
     let tokens = Claims::refresh_token(&body.refresh_token, state).await?;
     Ok(SuccessResponse {
         msg: "Tokens refreshed successfully",
-        data: Some(Json(TokenResponse{ tokens })),
+        data: Some(Json(TokenResponse { tokens })),
     })
 }
 
@@ -103,16 +103,17 @@ pub async fn get_me_handler(
     claims: Claims,
 ) -> AppResult<impl IntoResponse> {
     if let Some(user) =
-        Account::fetch_user_by_email(state.get_db(), &claims.email).await? {
+        Account::fetch_user_by_email(state.get_db(), &claims.email).await?
+    {
         Ok(SuccessResponse {
             msg: "success",
-            data: Some(Json(UserResponse{
+            data: Some(Json(UserResponse {
                 email: user.email,
                 language: user.language,
                 status: user.status,
             })),
         })
-    }else {
+    } else {
         Err(AuthError(AuthInnerError::InvalidToken))
     }
 }
@@ -204,8 +205,6 @@ pub async fn verify_active_account_code_handler(
 
     if let Some(stored) = redis.get::<String>(&key).await? {
         if stored == body.code {
-            Account::update_email_verified_at(state.get_db(), claims.uid)
-                .await?;
             redis.del(&key).await?;
         } else {
             return Err(AuthError(AuthInnerError::WrongCode));
@@ -222,7 +221,7 @@ pub async fn verify_active_account_code_handler(
 
     Ok(SuccessResponse {
         msg: "success",
-        data: Some(Json(TokenResponse{ tokens })),
+        data: Some(Json(TokenResponse { tokens })),
     })
 }
 
