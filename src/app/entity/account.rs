@@ -4,6 +4,7 @@ use crate::{
     app::service::jwt_service::TokenSchema,
     models::{account::Account, types::Language},
 };
+use crate::models::types::AccountStatus;
 
 #[derive(Debug, Serialize)]
 pub struct LoginResponse {
@@ -22,6 +23,18 @@ impl LoginResponse {
             language: user.language,
         }
     }
+}
+
+#[derive(Debug, Serialize)]
+pub struct TokenResponse {
+    pub tokens: TokenSchema,
+}
+
+#[derive(Debug, Serialize)]
+pub struct UserResponse {
+    pub email: String,
+    pub language: Language,
+    pub status: AccountStatus
 }
 
 #[derive(Debug, Deserialize)]

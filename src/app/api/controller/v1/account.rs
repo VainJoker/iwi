@@ -31,6 +31,7 @@ use crate::{
         types::AccountStatus,
     },
 };
+use crate::app::entity::account::{TokenResponse, UserResponse};
 
 pub async fn register_user_handler(
     State(state): State<Arc<AppState>>,
@@ -86,10 +87,10 @@ pub async fn refresh_token_handler(
     State(state): State<Arc<AppState>>,
     Json(body): Json<RefreshTokenRequest>,
 ) -> AppResult<impl IntoResponse> {
-    let token = Claims::refresh_token(&body.refresh_token, state).await?;
+    let tokens = Claims::refresh_token(&body.refresh_token, state).await?;
     Ok(SuccessResponse {
         msg: "Tokens refreshed successfully",
-        data: Some(Json(token)),
+        data: Some(Json(TokenResponse{ tokens })),
     })
 }
 
@@ -97,12 +98,19 @@ pub async fn get_me_handler(
     State(state): State<Arc<AppState>>,
     claims: Claims,
 ) -> AppResult<impl IntoResponse> {
-    let user =
-        Account::fetch_user_by_email(state.get_db(), &claims.email).await?;
-    Ok(SuccessResponse {
-        msg: "success",
-        data: Some(Json(user)),
-    })
+    if let Some(user) =
+        Account::fetch_user_by_email(state.get_db(), &claims.email).await? {
+        Ok(SuccessResponse {
+            msg: "success",
+            data: Some(Json(UserResponse{
+                email: user.email,
+                language: user.language,
+                status: user.status,
+            })),
+        })
+    }else {
+        Err(AuthError(AuthInnerError::InvalidToken))
+    }
 }
 
 pub async fn send_active_account_email_handler(
@@ -210,7 +218,7 @@ pub async fn verify_active_account_code_handler(
 
     Ok(SuccessResponse {
         msg: "success",
-        data: Some(Json(tokens)),
+        data: Some(Json(TokenResponse{ tokens })),
     })
 }
 

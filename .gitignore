@@ -3,3 +3,4 @@
 /logs
 /.idea
 Cargo.lock
+/fixtures/config.toml

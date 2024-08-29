@@ -30,7 +30,7 @@ pub fn init(app_state: Arc<AppState>) -> Router {
     let open = Router::new()
         .route("/auth/login", post(login_user_handler))
         .route("/auth/register", post(register_user_handler))
-        .route("/users/refresh_token", post(refresh_token_handler));
+        .route("/auth/refresh_token", post(refresh_token_handler));
 
     let basic = Router::new()
         .route(

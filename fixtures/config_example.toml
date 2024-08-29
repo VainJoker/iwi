@@ -33,6 +33,6 @@ error_file = "error.log"
 file_level = "info"
 
 [mail]
-username="vainjoker@mail.ee"
-password="password"
-host='mail.mail.ee'
+username = "username"
+password = "password"
+host = 'mail.mail.ee'
