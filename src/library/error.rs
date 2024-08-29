@@ -30,7 +30,7 @@ pub enum RedisorError {
     #[error("Redis connection error: `{0}`")]
     PoolError(#[from] deadpool_redis::PoolError),
     #[error("Redis execution error: `{0}`")]
-    ExeError(#[from] redis::RedisError),
+    ExeError(#[from] deadpool_redis::redis::RedisError),
 }
 
 #[derive(Error, Debug)]

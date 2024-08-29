@@ -1,5 +1,4 @@
-use deadpool_redis::{Connection, Pool, Runtime};
-use redis::{AsyncCommands, FromRedisValue, ToRedisArgs};
+use deadpool_redis::{redis::{ AsyncCommands, FromRedisValue, ToRedisArgs}, Connection, Pool, Runtime};
 
 use crate::library::{
     cfg,
