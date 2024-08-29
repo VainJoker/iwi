@@ -1,0 +1,57 @@
+services:
+  #app:
+  #  image: rust:latest
+  #  volumes:
+  #    - .:/usr/src/app
+  #  working_dir: /usr/src/app
+  #  depends_on:
+  #    - postgres
+  #    - dragonfly
+  #    #network_mode: "host"
+  #  # command:
+  #  #   cargo run
+  #  restart: always
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      #network_mode: "host"
+    ports:
+    - "5432:5432"
+    volumes:
+      - ./docker/postgres_data:/var/lib/postgresql/data
+
+  dragonfly:
+    image: 'docker.dragonflydb.io/dragonflydb/dragonfly:latest'
+    ulimits:
+      memlock: -1
+      #network_mode: "host"
+    ports:
+    - "6379:6379"
+    volumes:
+      - ./docker/dragonfly_data:/data
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      #    network_mode: "host"
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+    - "25672:25672"
+    volumes:
+      - ./docker/rabbitmq_data:/var/lib/rabbitmq
+
+# You could also choose to use Docker secrets for managing sensitive data
+secrets:
+  db_user:
+    file: /run/secrets/db_user
+  db_password:
+    file: /run/secrets/db_password

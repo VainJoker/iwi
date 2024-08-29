@@ -1,0 +1,77 @@
+[package]
+name = "app-server"
+version = "0.1.0"
+authors = ["Jasper Zhang <vainjoker.tuta.io>"]
+edition = "2021"
+
+[dependencies]
+axum = {version = "0.7", features = ["macros"]}
+axum-extra = {version = "0.9", features = ["typed-header"]}
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1.37", features = ["full"] }
+thiserror = "1"
+anyhow = "1"
+dotenvy = "0.15"
+validator = { version = "0.17", features = ["derive"] }
+hyper = { version = "1.0", features = [] }
+hyper-util = { version = "0.1", features = ["tokio", "server-auto", "http1"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["timeout", "cors", "trace"] }
+http-body-util = "0.1.0"
+argon2 = "0.5.3"
+jsonwebtoken = "9.3.0"
+rand_core = { version = "0.6.4", features = ["std"] }
+chrono = { version = "0.4.37", features = ["serde"] }
+ulid = "1.1.2"
+uuid = { version = "1.8.0", features = ["serde","v4"] }
+sqlx = { version = "0.7", features = ["postgres","runtime-tokio-rustls","macros","chrono","uuid"]}
+bytes = "1"
+log = "0.4"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json","fmt","env-filter","std","registry"] }
+tracing-appender = "0.2"
+tracing-error = "0.2.0"
+config = "0.14.0"
+redis = { version = "0.25.2", features = ["tokio-comp","tokio-rustls-comp", "connection-manager"] }
+deadpool-redis = { version = "0.15", features = ["serde"] }
+deadpool-lapin = { version = "0.12", features = ["serde"] }
+lettre = {version="0.11",features=["tokio1-native-tls"]}
+rand = "0.8.5"
+
+[dev-dependencies]
+assert-json-diff = "2.0"
+
+[profile.release]
+strip = true
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+cast_possible_truncation = "allow"
+cast_possible_wrap = "allow"
+cast_precision_loss = "allow"
+cast_sign_loss = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+module_name_repetitions = "allow"
+must_use_candidate = "allow"
+wildcard_imports = "allow"
+module_inception = "allow"
+as_underscore = "warn"
+deref_by_slicing = "warn"
+else_if_without_else = "warn"
+empty_line_after_doc_comments = "warn"
+equatable_if_let = "warn"
+fn_to_numeric_cast_any = "warn"
+format_push_string = "warn"
+map_err_ignore = "warn"
+missing_const_for_fn = "warn"
+mixed_read_write_in_expression = "warn"
+needless_raw_strings = "warn"
+redundant_type_annotations = "warn"
+rest_pat_in_fully_bound_structs = "warn"
+string_lit_chars_any = "warn"
+string_to_string = "warn"
+use_self = "warn"

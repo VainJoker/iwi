@@ -1,0 +1,5 @@
+/target
+/docker
+/logs
+/.idea
+Cargo.lock

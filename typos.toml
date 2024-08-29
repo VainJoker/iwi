@@ -1,0 +1,7 @@
+# configuration for https://github.com/crate-ci/typos
+
+[default.extend-words]
+default = "default"
+
+[files]
+extend-exclude = ["logs/*","docker/*"]

@@ -1,0 +1,18 @@
+# configuration for https://github.com/EmbarkStudios/cargo-deny
+
+[licenses]
+default = "allow"
+unlicensed = "allow"
+copyleft = "allow"
+
+[advisories]
+unmaintained = "deny"
+yanked = "deny"
+
+[bans]
+multiple-versions = "allow"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "warn"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

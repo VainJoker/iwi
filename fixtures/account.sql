@@ -1,0 +1,1 @@
+INSERT INTO "public"."bw_account" ("id", "name", "email", "password", "status", "language", "created_at", "updated_at", "deleted_at") VALUES (6192889942050345985, 'VJ', 'vainjoker@tuta.io', '$argon2id$v=19$m=19456,t=2,p=1$qx5HhB7crer58ao9Lyov6g$9QK5ZzCQTOlie/8lefC72EwCLrlp3r89bIbLR3dK2qo', 'inactive', 'en-US', '2024-05-21 09:37:51.894308', NULL, NULL);

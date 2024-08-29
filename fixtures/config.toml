@@ -1,0 +1,38 @@
+[app]
+env = "dev"
+host = "0.0.0.0"
+port = 8080
+db_url = "postgres://VJ:123qwe@localhost/app"
+redis_url = "redis://localhost"
+redis_prefix = "app"
+mq_url = "amqp://VJ:123qwe@localhost:5672"
+
+[app.access_token]
+secret = "your_access_token_secret"
+secret_expiration = 3600
+
+[app.refresh_token]
+secret = "your_refresh_token_secret"
+secret_expiration = 72000
+
+[log]
+mine_target = "app_server"
+database_target = "sqlx"
+
+path = "./logs"
+
+mine_formatting_level = "debug"
+database_formatting_level = "info"
+other_formatting_level = "info"
+
+mine_file = "mine.log"
+database_file = "database.log"
+other_file = "other.log"
+error_file = "error.log"
+
+file_level = "info"
+
+[mail]
+username="vainjoker@mail.ee"
+password="password"
+host='mail.mail.ee'
