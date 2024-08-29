@@ -55,7 +55,11 @@ pub async fn register_user_handler(
 
     Ok(SuccessResponse {
         msg: "success",
-        data: Some(Json(user)),
+        data: Some(Json(UserResponse{
+            email: user.email,
+            language: user.language,
+            status: user.status,
+        }))
     })
 }
 
