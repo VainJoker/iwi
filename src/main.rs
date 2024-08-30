@@ -1,6 +1,6 @@
-use app_server::cmd;
+use iwi::cmd;
 
 #[tokio::main]
 async fn main() {
-    cmd::web_serve().await;
+    cmd::cmd().await;
 }

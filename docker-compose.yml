@@ -1,16 +1,10 @@
 services:
-  #app:
-  #  image: rust:latest
-  #  volumes:
-  #    - .:/usr/src/app
-  #  working_dir: /usr/src/app
-  #  depends_on:
-  #    - postgres
-  #    - dragonfly
-  #    #network_mode: "host"
-  #  # command:
-  #  #   cargo run
-  #  restart: always
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./bin:/app/bin
 
   postgres:
     image: postgres:latest

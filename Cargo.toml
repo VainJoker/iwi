@@ -1,5 +1,5 @@
 [package]
-name = "app-server"
+name = "iwi"
 version = "0.1.0"
 authors = ["Jasper Zhang <vainjoker.tuta.io>"]
 edition = "2021"
@@ -38,7 +38,7 @@ deadpool-redis = { version = "0.16", features = ["serde"] }
 deadpool-lapin = { version = "0.12", features = ["serde"] }
 lettre = {version="0.11",features=["tokio1-native-tls"]}
 rand = "0.8.5"
-#openssl = { version = "0.10", features = ["vendored"] }
+clap = { version = "4.5.16", features = ["derive"] }
 
 [dev-dependencies]
 assert-json-diff = "2.0"

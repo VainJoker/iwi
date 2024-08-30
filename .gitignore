@@ -3,5 +3,6 @@
 /logs
 /.idea
 Cargo.lock
+/Cross.toml
 /fixtures/config.toml
 /.env
