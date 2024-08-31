@@ -33,7 +33,9 @@ pub async fn cmd() {
     let cli = Cli::parse();
 
     if let Some(config_path) = cli.config.as_deref() {
-        println!("Value for config: {}", config_path.display());
+        cfg::init(&config_path.to_string_lossy().to_string());
+    }else {
+        println!("loading default config file!!!!");
         cfg::init(&"./fixtures/config.toml".to_string());
     }
 

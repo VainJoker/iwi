@@ -9,12 +9,11 @@ use tower_http::timeout::TimeoutLayer;
 
 use super::{
     controller::{
-        handler_404,
-        v1::account::{
+        common::handler_404, v1::account::{
             change_password_handler, refresh_token_handler,
             send_reset_password_email_handler,
             verify_active_account_code_handler,
-        },
+        }
     },
     middleware::{auth, basic_auth, cors, log, req_id},
 };

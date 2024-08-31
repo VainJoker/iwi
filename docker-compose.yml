@@ -3,8 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    # docker-compose --profile build-profile up
+    profiles:
+      - build-profile
     volumes:
-      - ./bin:/app/bin
+      - ./bin/:/app/bin/
+    command: cp /app/target/release/${BIN} /app/bin/${BIN}
 
   postgres:
     image: postgres:latest
@@ -12,7 +16,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      #network_mode: "host"
+      network_mode: "host"
     ports:
     - "5432:5432"
     volumes:
@@ -22,7 +26,7 @@ services:
     image: 'docker.dragonflydb.io/dragonflydb/dragonfly:latest'
     ulimits:
       memlock: -1
-      #network_mode: "host"
+    network_mode: "host"
     ports:
     - "6379:6379"
     volumes:
@@ -35,7 +39,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-      #    network_mode: "host"
+      network_mode: "host"
     ports:
     - "5672:5672"
     - "15672:15672"
