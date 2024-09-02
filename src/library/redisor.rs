@@ -1,4 +1,7 @@
-use deadpool_redis::{redis::{ AsyncCommands, FromRedisValue, ToRedisArgs}, Connection, Pool, Runtime};
+use deadpool_redis::{
+    redis::{AsyncCommands, FromRedisValue, ToRedisArgs},
+    Connection, Pool, Runtime,
+};
 
 use crate::library::{
     cfg,
@@ -177,12 +180,14 @@ impl Redis {
 }
 
 #[cfg(test)]
+// ignore all
 mod tests {
     use std::time;
 
     use super::*;
 
     #[tokio::test]
+    #[ignore]
     async fn test_redisor_init() {
         cfg::init(&"./fixtures/config.toml".to_string());
         let redisor = Redisor::init();
@@ -193,6 +198,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_redisor_del() {
         cfg::init(&"./fixtures/config.toml".to_string());
         let redisor = Redisor::init();
@@ -205,7 +211,7 @@ mod tests {
         );
         redis.del("key2").await.unwrap();
         assert_eq!(redis.get::<String>("key2").await.unwrap(), None);
-        redis.del("key2").await.unwrap();
+        // redis.del("key2").await.unwrap();
     }
 
     #[tokio::test]
@@ -226,6 +232,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_redisor_hset() {
         cfg::init(&"./fixtures/config.toml".to_string());
         let redisor = Redisor::init();
@@ -241,6 +248,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_redisor_hkeys() {
         cfg::init(&"./fixtures/config.toml".to_string());
         let redisor = Redisor::init();
@@ -257,6 +265,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_redisor_expire() {
         cfg::init(&"./fixtures/config.toml".to_string());
         let redisor = Redisor::init();

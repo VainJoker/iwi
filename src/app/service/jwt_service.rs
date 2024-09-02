@@ -173,7 +173,7 @@ impl Claims {
     pub fn parse_token(
         token: &str,
         token_type: TokenType,
-        flag: bool,
+        verified: bool,
     ) -> AppResult<Self> {
         let info = match token_type {
             TokenType::ACCESS => ACCESS_INFO
@@ -182,8 +182,8 @@ impl Claims {
                 .get_or_init(|| Arc::new(TokenSecretInfo::new(token_type))),
         };
         let claims = info.parse_token(token)?;
-        if (flag && claims.status == AccountStatus::Active)
-            || (!flag && claims.status != AccountStatus::Suspend)
+        if (verified && claims.status == AccountStatus::Active)
+            || (!verified && claims.status != AccountStatus::Suspend)
         {
             return Ok(claims);
         }

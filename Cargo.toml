@@ -25,7 +25,7 @@ rand_core = { version = "0.6.4", features = ["std"] }
 chrono = { version = "0.4.37", features = ["serde"] }
 ulid = "1.1.2"
 uuid = { version = "1.8.0", features = ["serde","v4"] }
-sqlx = { version = "0.7", features = ["postgres","runtime-tokio-rustls","macros","chrono","uuid"]}
+sqlx = { version = "0.7.4", features = ["postgres","runtime-tokio-rustls","macros","chrono","uuid"]}
 bytes = "1"
 log = "0.4"
 tracing = "0.1"
@@ -33,7 +33,7 @@ tracing-subscriber = { version = "0.3", features = ["json","fmt","env-filter","s
 tracing-appender = "0.2"
 tracing-error = "0.2.0"
 config = "0.14.0"
-redis = { version = "0.25.2", features = ["tokio-comp","tokio-rustls-comp", "connection-manager"] }
+redis = { version = "0.26", features = ["tokio-comp","tokio-rustls-comp", "connection-manager"] }
 deadpool-redis = { version = "0.16", features = ["serde"] }
 deadpool-lapin = { version = "0.12", features = ["serde"] }
 lettre = {version="0.11",features=["tokio1-native-tls"]}

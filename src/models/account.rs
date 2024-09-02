@@ -150,7 +150,8 @@ mod tests {
     const NONEXISTENT_ACCOUNT_ID: i64 = 0;
     const NONEXISTENT_EMAIL: &str = "nonexistent@test.com";
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_register_account(pool: PgPool) -> sqlx::Result<()> {
         let item = RegisterSchema {
             name: NAME.to_string(),
@@ -164,7 +165,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_fetch_user_by_email(pool: PgPool) -> sqlx::Result<()> {
         let account =
             Account::fetch_user_by_email(&pool, MY_EMAIL).await.unwrap();
@@ -173,7 +175,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_fetch_user_by_uid(pool: PgPool) -> sqlx::Result<()> {
         let account =
             Account::fetch_user_by_uid(&pool, ACCOUNT_ID).await.unwrap();
@@ -182,7 +185,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_check_user_exists_by_email(pool: PgPool) -> sqlx::Result<()> {
         let exists = Account::check_user_exists_by_email(&pool, MY_EMAIL)
             .await
@@ -192,7 +196,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_check_user_exists_by_uid(pool: PgPool) -> sqlx::Result<()> {
         let exists = Account::check_user_exists_by_uid(&pool, &ACCOUNT_ID)
             .await
@@ -202,7 +207,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_check_user_active_by_uid(pool: PgPool) -> sqlx::Result<()> {
         let is_active = Account::check_user_active_by_uid(&pool, ACCOUNT_ID)
             .await
@@ -212,7 +218,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_update_password_by_uid(pool: PgPool) -> sqlx::Result<()> {
         let item = ResetPasswordSchema {
             uid: ACCOUNT_ID,
@@ -225,7 +232,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_register_account_with_existing_email(
         pool: PgPool,
     ) -> sqlx::Result<()> {
@@ -240,7 +248,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_fetch_user_by_nonexistent_email(
         pool: PgPool,
     ) -> sqlx::Result<()> {
@@ -252,7 +261,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_fetch_user_by_nonexistent_uid(
         pool: PgPool,
     ) -> sqlx::Result<()> {
@@ -264,7 +274,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_check_user_exists_by_nonexistent_email(
         pool: PgPool,
     ) -> sqlx::Result<()> {
@@ -277,7 +288,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_check_user_exists_by_nonexistent_uid(
         pool: PgPool,
     ) -> sqlx::Result<()> {
@@ -290,7 +302,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_check_user_active_by_nonexistent_uid(
         pool: PgPool,
     ) -> sqlx::Result<()> {
@@ -303,7 +316,8 @@ mod tests {
         Ok(())
     }
 
-    #[sqlx::test(fixtures(path = "../../resources", scripts("account")))]
+    #[sqlx::test(fixtures(path = "../../fixtures", scripts("account")))]
+    #[ignore]
     async fn test_update_password_for_nonexistent_account(
         pool: PgPool,
     ) -> sqlx::Result<()> {

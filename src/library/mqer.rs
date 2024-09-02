@@ -101,7 +101,7 @@ impl Mqer {
                 }
             }
             Err(err) => {
-                panic!("💥 Failed to connect to the redis: {err:?}");
+                panic!("💥 Failed to connect to the MQ: {err:?}");
             }
         }
     }

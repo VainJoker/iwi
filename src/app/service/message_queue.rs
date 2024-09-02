@@ -42,7 +42,7 @@ impl Service for Server {
 
 impl Server {
     pub async fn email_sender(&self) -> AppResult<()> {
-        tracing::debug!("customer started");
+        tracing::debug!("email customer started");
         let func = |message: String| {
             let result = serde_json::from_str::<Email>(&message)
                 .map_err(|e| {

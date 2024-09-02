@@ -7,3 +7,4 @@ Cargo.lock
 /fixtures/config.toml
 /.env
 /bin
+/assets

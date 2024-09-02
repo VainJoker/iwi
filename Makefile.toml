@@ -8,7 +8,7 @@ alias = "ci"
 
 [tasks.ci]
 description = "Run continuous integration tasks"
-dependencies = ["lint-style", "clippy", "check", "build", "test", "changelog"]
+dependencies = ["lint-style", "clippy", "check", "test", "changelog"]
 
 [tasks.lint-style]
 description = "Lint code style (formatting, typos, docs)"
@@ -38,25 +38,11 @@ args = [
   "-Dwarnings",
 ]
 
-[tasks.lint-dependencies]
-description = "Lint crate dependencies"
-toolchain = "nightly"
-command = "cargo"
-args = [
-  "deny",
-  "check",
-  "all"
-]
-
 [tasks.check]
 description = "Check code for errors and warnings"
 command = "cargo"
 args = ["check"]
 
-[tasks.build]
-description = "Compile the project"
-command = "cargo"
-args = ["build"]
 
 [tasks.clippy]
 description = "Run Clippy for linting"

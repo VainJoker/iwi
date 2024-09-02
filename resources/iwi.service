@@ -1,0 +1,26 @@
+[Unit]
+Description=IWI-Process
+Documentation=
+Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable=/opt/iwi/app-server
+
+[Service]
+WorkingDirectory=/opt/iwi
+
+User=vainjoker
+Group=vainjoker
+#ProtectProc=invisible
+
+ExecStart=/opt/iwi/app-server
+Restart=always
+ExecStop=/bin/kill -TERM $MAINPID
+RestartSec=12s
+
+# Specifies the maximum file descriptor number that can be opened by this process
+LimitNOFILE=1048576
+
+# Specifies the maximum number of threads this process can create
+TasksMax=infinity
+
+# Disable timeout logic and wait until process is stopped

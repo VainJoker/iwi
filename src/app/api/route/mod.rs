@@ -9,13 +9,14 @@ use tower_http::timeout::TimeoutLayer;
 
 use super::{
     controller::{
-        common::handler_404, v1::account::{
+        common::handler_404,
+        v1::account::{
             change_password_handler, refresh_token_handler,
             send_reset_password_email_handler,
             verify_active_account_code_handler,
-        }
+        },
     },
-    middleware::{auth, basic_auth, cors, log, req_id},
+    middleware::{auth, cors, log, req_id},
 };
 use crate::app::{
     api::controller::v1::account::{
@@ -40,7 +41,7 @@ pub fn init(app_state: Arc<AppState>) -> Router {
             "/users/verify_active",
             post(verify_active_account_code_handler),
         )
-        .layer(from_fn(basic_auth::handle));
+        .layer(from_fn(|req, next| auth::handle(req, next, false)));
 
     let auth = Router::new()
         .route("/users/get_me", post(get_me_handler))
@@ -52,7 +53,9 @@ pub fn init(app_state: Arc<AppState>) -> Router {
             "/users/verify_reset_password",
             post(change_password_handler),
         )
-        .route_layer(from_fn_with_state(app_state.clone(), auth::handle))
+        .route_layer(from_fn_with_state(app_state.clone(), |req, next| {
+            auth::handle(req, next, true)
+        }))
         .with_state(app_state.clone());
 
     Router::new()

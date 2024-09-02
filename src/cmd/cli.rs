@@ -1,5 +1,6 @@
 use std::path::PathBuf;
-use clap::{Parser,Subcommand};
+
+use clap::{Parser, Subcommand};
 
 use crate::{
     app,
@@ -21,7 +22,7 @@ struct Cli {
 enum Commands {
     Test {
         #[arg(short, long)]
-        _case: String
+        _case: String,
     },
     Run,
     Start,
@@ -34,28 +35,26 @@ pub async fn cmd() {
 
     if let Some(config_path) = cli.config.as_deref() {
         cfg::init(&config_path.to_string_lossy().to_string());
-    }else {
+    } else {
         println!("loading default config file!!!!");
         cfg::init(&"./fixtures/config.toml".to_string());
     }
 
     let (_guard1, _guard2, _guard3, _guard4) = logger::init(cfg::config());
-    
+
+    #[allow(clippy::single_match)]
     match &cli.command {
-        Some(command) => {
-            match command {
-                Commands::Test { _case } => todo!(),
-                Commands::Run => {
-                    tracing::info!("Application started");
-                    app::serve().await;
-                    tracing::info!("Application stopped");
-                },
-                Commands::Start => todo!(),
-                Commands::Restart => todo!(),
-                Commands::Shutdown => todo!(),
+        Some(command) => match command {
+            Commands::Test { _case } => todo!(),
+            Commands::Run => {
+                tracing::info!("Application started");
+                app::serve().await;
+                tracing::info!("Application stopped");
             }
-        }
+            Commands::Start => todo!(),
+            Commands::Restart => todo!(),
+            Commands::Shutdown => todo!(),
+        },
         None => {}
     }
-
 }

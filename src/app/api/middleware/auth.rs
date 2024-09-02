@@ -8,7 +8,11 @@ use crate::{
     library::error::{AppError::AuthError, AppResult, AuthInnerError},
 };
 
-pub async fn handle(request: Request, next: Next) -> AppResult<Response> {
+pub async fn handle(
+    request: Request,
+    next: Next,
+    verified: bool,
+) -> AppResult<Response> {
     let token = request
         .headers()
         .get(AUTHORIZATION)
@@ -16,7 +20,7 @@ pub async fn handle(request: Request, next: Next) -> AppResult<Response> {
         .and_then(|auth_value| auth_value.strip_prefix("Bearer "))
         .ok_or(AuthError(AuthInnerError::InvalidToken))?;
 
-    Claims::parse_token(token, TokenType::ACCESS, true)?;
+    Claims::parse_token(token, TokenType::ACCESS, verified)?;
 
     Ok(next.run(request).await)
 }
